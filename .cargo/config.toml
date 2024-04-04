@@ -1,9 +1,13 @@
 [unstable]
+# Build core from scratch (since using custom target)
 build-std = ["core", "compiler_builtins"]
+# Memset, memcpy impl. in std disabled by default to not collide with C impl.
 build-std-features = ["compiler-builtins-mem"]
 
 [build]
 target = "x86_64-custom.json"
 
 [target.'cfg(target_os = "none")']
+# Pass path to the compiled binary to bootimage which links it with the bootloader dep
+# and launches QEMU
 runner = "bootimage runner"
