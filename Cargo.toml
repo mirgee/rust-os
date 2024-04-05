@@ -23,3 +23,8 @@ test-args = [
 # QEMU exit code to map to success (0) exit code for test runs
 test-success-exit-code = 33         # (0x10 << 1) | 1
 test-timeout = 300          # (in seconds)
+
+# Do not use any test harness for should_panic test (since we can have only one test scenario)
+[[test]]
+name = "should_panic"
+harness = false
