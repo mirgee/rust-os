@@ -11,7 +11,7 @@
 
 use core::panic::PanicInfo;
 
-use rust_os::{init, println};
+use rust_os::println;
 
 // our existing panic handler
 #[cfg(not(test))] // new attribute
@@ -33,9 +33,13 @@ fn panic(info: &PanicInfo) -> ! {
 pub extern "C" fn _start() -> ! {
     println!("Hello World{}", "!");
 
-    init();
+    rust_os::init();
 
-    x86_64::instructions::interrupts::int3();
+    fn stack_overflow() {
+        stack_overflow();
+    }
+
+    stack_overflow();
 
     #[cfg(test)]
     test_main();
